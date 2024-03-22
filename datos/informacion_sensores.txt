@@ -1,0 +1,89 @@
+### Feature Importance
+reference : https://towardsdatascience.com/the-mathematics-of-decision-trees-random-forest-and-feature-importance-in-scikit-learn-and-spark-f2861df67e3
+
+Permutation feature importance : https://scikit-learn.org/stable/modules/permutation_importance.html (for tabular data)
+
+the scoring params : https://scikit-learn.org/stable/modules/model_evaluation.html#multimetric-scoring
+
+###########################################################################
+#### Pump-sensor data:
+https://becominghuman.ai/predict-pump-failure-before-it-happens-using-deep-learning-model-dc886bfa073e
+
+
+Ok so I've spent some time with the data set putting it through a product called SEEQ. I think the parameters are something along these lines:
+SENSOR_00 - Motor Casing Vibration
+SENSOR_01 - Motor Frequency A
+SENSOR_02 - Motor Frequency B
+SENSOR_03 - Motor Frequency C
+SENSOR_04 - Motor Speed
+SENSOR_05 - Motor Current
+SENSOR_06 - Motor Active Power
+SENSOR_07 - Motor Apparent Power
+SENSOR_08 - Motor Reactive Power
+SENSOR_09 - Motor Shaft Power  
+SENSOR_10 - Motor Phase Current A
+SENSOR_11 - Motor Phase Current B
+SENSOR_12 - Motor Phase Current C
+SENSOR_13 - Motor Coupling Vibration
+SENSOR_14 - Motor Phase Voltage AB
+SENSOR_16 - Motor Phase Voltage BC
+SENSOR_17 - Motor Phase Voltage CA
+SENSOR_18 - Pump Casing Vibration
+SENSOR_19 - Pump Stage 1 Impeller Speed
+SENSOR_20 - Pump Stage 1 Impeller Speed
+SENSOR_21 - Pump Stage 1 Impeller Speed
+SENSOR_22 - Pump Stage 1 Impeller Speed
+SENSOR_23 - Pump Stage 1 Impeller Speed
+SENSOR_24 - Pump Stage 1 Impeller Speed
+SENSOR_25 - Pump Stage 2 Impeller Speed
+SENSOR_26 - Pump Stage 2 Impeller Speed
+SENSOR_27 - Pump Stage 2 Impeller Speed
+SENSOR_28 - Pump Stage 2 Impeller Speed
+SENSOR_29 - Pump Stage 2 Impeller Speed
+SENSOR_30 - Pump Stage 2 Impeller Speed
+SENSOR_31 - Pump Stage 2 Impeller Speed
+SENSOR_32 - Pump Stage 2 Impeller Speed
+SENSOR_33 - Pump Stage 2 Impeller Speed
+SENSOR_34 - Pump Inlet Flow
+SENSOR_35 - Pump Discharge Flow
+SENSOR_36 - Pump UNKNOWN
+SENSOR_37 - Pump Lube Oil Overhead Reservoir Level
+SENSOR_38 - Pump Lube Oil Return Temp
+SENSOR_39 - Pump Lube Oil Supply Temp
+SENSOR_40 - Pump Thrust Bearing Active Temp
+SENSOR_41 - Motor Non Drive End Radial Bearing Temp 1
+SENSOR_42 - Motor Non Drive End Radial Bearing Temp 2
+SENSOR_43 - Pump Thrust Bearing Inactive Temp
+SENSOR_44 - Pump Drive End Radial Bearing Temp 1
+SENSOR_45 - Pump non Drive End Radial Bearing Temp 1
+SENSOR_46 - Pump Non Drive End Radial Bearing Temp 2
+SENSOR_47 - Pump Drive End Radial Bearing Temp 2
+SENSOR_48 - Pump Inlet Pressure
+SENSOR_49 - Pump Temp Unknown
+SENSOR_50 - Pump Discharge Pressure 1
+SENSOR_51 - Pump Discharge Pressure 2
+Pump Status
+
+
+on
+[1]  18100  27622  70632  78397 136432 141174 166517
+> off
+[1]  17156  24511  69319  77791 128041 141132 166441
+
+
+
+cbind(sensor[off,2],sensor[on,2])
+            timestamp           timestamp
+1 2018-04-12 21:55:00 2018-04-13 13:39:00
+2 2018-04-18 00:30:00 2018-04-20 04:21:00
+3 2018-05-19 03:18:00 2018-05-20 01:11:00
+4 2018-05-25 00:30:00 2018-05-25 10:36:00
+5 2018-06-28 22:00:00 2018-07-04 17:51:00
+6 2018-07-08 00:11:00 2018-07-08 00:53:00
+7 2018-07-25 14:00:00 2018-07-25 15:16:00
+
+## datos de estado de la maquina desde el 1-abril al 31-julio
+freq<-c(12,1,5,2,29,1,5,1,33,6,4,1,16,1,5)
+estado<-c(1,0,1,0,1,0,1,0,1,0,1,0,1,0,1)
+maquina<-rep(estado,freq)
+fechas<-seq.Date(as.Date('2018-04-01'),as.Date('2018-07-31'),by=1)
